@@ -42,8 +42,9 @@ class StickyHeaderDecoration(private val adapter: StickyHeaderCallBack, root: Vi
                         layoutHeaderView(topChild)
                         canvas.drawHeaderView(topChild, secondChild)
                     }
-                } else {
-                    adapter.getHeaderForOldPosition(topChildPosition).let { header ->
+                }
+                else {
+                    adapter.getHeaderForOldPosition(topChildPosition - 1).let { header ->
                         adapter.onBindHeaderData(headerBinding, header)
                         layoutHeaderView(topChild)
                         canvas.drawHeaderView(topChild, secondChild)

@@ -129,8 +129,10 @@ class MainActivity : AppCompatActivity() {
             }
 
         override fun getHeaderForOldPosition(position: Int): HeaderItemViewModel? {
-            return currentList.filterIsInstance<HeaderContentItemViewModel>()
-                .find { it.showHeader == true }?.let { HeaderItemViewModel(it.name, it.showHeader) }
+            return getItem(position)?.let { if (it is HeaderContentItemViewModel) HeaderItemViewModel(
+                it.name,
+                it.showHeader
+            ) else null }
         }
 
         override fun isHeader(itemPosition: Int): Boolean = getItem(itemPosition).let {
