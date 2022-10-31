@@ -18,4 +18,10 @@ data class Book(
         ContentItemViewModel(title, author, year.toString(), country),
         ContentItemViewModel(title, author, year.toString(), country)
     )
+
+    fun createItem2(showHeader: Boolean) = HeaderContentItemViewModel(
+        title,
+        createItems(showHeader),
+        showHeader
+    )
 }
