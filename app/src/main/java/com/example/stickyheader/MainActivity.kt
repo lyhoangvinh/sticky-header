@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.stickyheader.databinding.ActivityMainBinding
-import com.example.stickyheader.databinding.ItemContentBinding
-import com.example.stickyheader.databinding.ItemHeaderBinding
-import com.example.stickyheader.databinding.ItemStickyHeaderBinding
+import com.example.stickyheader.databinding.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -34,8 +31,8 @@ class MainActivity : AppCompatActivity() {
             ?.let { dividerItemDecoration.setDrawable(it) }
         binding.rcv.addItemDecoration(dividerItemDecoration)
         lifecycleScope.launch(Dispatchers.IO) {
-            val data = getItems(this@MainActivity).flatMap {
-                it.createItems(it.year < 0)
+            val data = getItems(this@MainActivity).map {
+                it.createItem2(it.year < 0)
             }
             withContext(Dispatchers.Main) {
                 adapter.submitList(data)
@@ -54,12 +51,14 @@ class MainActivity : AppCompatActivity() {
         companion object {
             const val HEADER = 0
             const val CONTENT = 1
+            const val HEADER_AND_CONTENT = 2
         }
 
         override fun getItemViewType(position: Int): Int = getItem(position).let { item ->
             when (item) {
                 is HeaderItemViewModel -> HEADER
                 is ContentItemViewModel -> CONTENT
+                is HeaderContentItemViewModel -> HEADER_AND_CONTENT
                 else -> throw RuntimeException("Not support item $item")
             }
         }
@@ -68,6 +67,7 @@ class MainActivity : AppCompatActivity() {
             return when (viewType) {
                 HEADER -> HeaderViewHolder(parent)
                 CONTENT -> ContentViewHolder(parent)
+                HEADER_AND_CONTENT -> HeaderAndContentViewHolder(parent)
                 else -> throw RuntimeException("Not support type=$viewType")
             }
         }
@@ -77,6 +77,9 @@ class MainActivity : AppCompatActivity() {
                 when (it) {
                     is HeaderItemViewModel -> (holder as HeaderViewHolder).setItem(it)
                     is ContentItemViewModel -> (holder as ContentViewHolder).setItem(it)
+                    is HeaderContentItemViewModel -> (holder as HeaderAndContentViewHolder).setItem(
+                        it
+                    )
                 }
             }
         }
@@ -100,19 +103,38 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        override fun onBindHeaderData(binding: ItemStickyHeaderBinding, header: HeaderItemViewModel?) {
+        class HeaderAndContentViewHolder(parent: ViewGroup) :
+            RecyclerView.ViewHolder(parent.inflate(R.layout.item_header_and_content)) {
+            private val binding = ItemHeaderAndContentBinding.bind(itemView)
+            fun setItem(data: HeaderContentItemViewModel?) {
+                binding.rcv.adapter = MainAdapter().apply {
+                    submitList(data?.list)
+                }
+            }
+        }
+
+        override fun onBindHeaderData(
+            binding: ItemStickyHeaderBinding,
+            header: HeaderItemViewModel?
+        ) {
             binding.tvStickyHeader.text = header?.title
         }
 
         override fun getHeaderForCurrentPosition(position: Int): HeaderItemViewModel? =
-            getItem(position)?.let { if (it is HeaderItemViewModel) it else null }
+            getItem(position)?.let {
+                if (it is HeaderContentItemViewModel) HeaderItemViewModel(
+                    it.name,
+                    it.showHeader
+                ) else null
+            }
 
         override fun getHeaderForOldPosition(position: Int): HeaderItemViewModel? {
-           return currentList.filterIsInstance<HeaderItemViewModel>().find { it.showHeader == true }
+            return currentList.filterIsInstance<HeaderContentItemViewModel>()
+                .find { it.showHeader == true }?.let { HeaderItemViewModel(it.name, it.showHeader) }
         }
 
         override fun isHeader(itemPosition: Int): Boolean = getItem(itemPosition).let {
-            it is HeaderItemViewModel && it.showHeader == true
+            it is HeaderContentItemViewModel && it.showHeader == true
         }
     }
 }

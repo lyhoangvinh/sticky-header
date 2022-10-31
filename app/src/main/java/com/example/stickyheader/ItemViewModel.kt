@@ -14,5 +14,10 @@ data class ContentItemViewModel(val name: String, val author: String, val year: 
         get() = name
 }
 
+data class HeaderContentItemViewModel(val name: String, val list: List<ItemViewModel>, var showHeader: Boolean?) : ItemViewModel {
+    override val idViewModel: String
+        get() = name
+}
+
 
 

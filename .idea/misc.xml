@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Documents/sticky_header/app/src/main/res/layout/item_content.xml" value="0.26875" />
+        <entry key="..\:/Documents/sticky_header/app/src/main/res/layout/item_header.xml" value="0.26875" />
+        <entry key="..\:/Documents/sticky_header/app/src/main/res/layout/item_header_and_content.xml" value="0.26875" />
+        <entry key="..\:/Documents/sticky_header/app/src/main/res/layout/item_sticky_header.xml" value="0.2546875" />
         <entry key="..\:/Documents/stickyheader/app/src/main/res/drawable/list_divider.xml" value="0.2395" />
         <entry key="..\:/Documents/stickyheader/app/src/main/res/layout/activity_main.xml" value="0.27291666666666664" />
         <entry key="..\:/Documents/stickyheader/app/src/main/res/layout/item_header.xml" value="0.27291666666666664" />
