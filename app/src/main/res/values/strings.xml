@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">sticky header</string>
+    <string name="title">Title:</string>
+    <string name="author">Author:</string>
+    <string name="year">Year:</string>
+    <string name="country">Country:</string>
+</resources>
