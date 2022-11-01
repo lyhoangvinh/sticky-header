@@ -15,12 +15,12 @@ fun ViewGroup.inflate(@LayoutRes layout: Int, attachToRoot: Boolean = false): Vi
 
 private const val SOURCE_FILE_NAME = "data.json"
 
-fun Context.getItems(context: Context): List<Book> {
+fun Context.getItems(): List<Book> {
 
     val jsonString: String
     try {
         jsonString =
-            context.assets.open(SOURCE_FILE_NAME).bufferedReader().use { it.readText() }
+            assets.open(SOURCE_FILE_NAME).bufferedReader().use { it.readText() }
     } catch (ioException: IOException) {
         ioException.printStackTrace()
         return emptyList()

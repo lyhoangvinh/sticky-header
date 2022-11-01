@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Documents/sticky_header/app/src/main/res/layout/activity_collapsing.xml" value="0.27291666666666664" />
+        <entry key="..\:/Documents/sticky_header/app/src/main/res/layout/activity_main.xml" value="0.27291666666666664" />
+        <entry key="..\:/Documents/sticky_header/app/src/main/res/layout/activity_sticky.xml" value="0.27291666666666664" />
         <entry key="..\:/Documents/sticky_header/app/src/main/res/layout/item_content.xml" value="0.26875" />
         <entry key="..\:/Documents/sticky_header/app/src/main/res/layout/item_header.xml" value="0.26875" />
         <entry key="..\:/Documents/sticky_header/app/src/main/res/layout/item_header_and_content.xml" value="0.26875" />

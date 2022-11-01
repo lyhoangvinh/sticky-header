@@ -24,4 +24,12 @@ data class Book(
         createItems(showHeader),
         showHeader
     )
+
+    fun createItems3() = listOf(
+        ContentItemViewModel(title, author, year.toString(), country),
+        ContentItemViewModel(title, author, year.toString(), country),
+        ContentItemViewModel(title, author, year.toString(), country),
+        ContentItemViewModel(title, author, year.toString(), country),
+        ContentItemViewModel(title, author, year.toString(), country)
+    )
 }
